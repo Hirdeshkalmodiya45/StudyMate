@@ -7,10 +7,10 @@ let flag = true;
 function Logout({ closeModal }) {
   const [success, setSuccess] = useState(true);
   const {setEmail, setUser,setIsVerified} = useContext(AppContext)
-
+   const BASE_URL = import.meta.env.VITE_API_URL;
   const handleLogOut = async () => {
     if (flag) {
-      await fetch("http://localhost:3300/learner/logout", {
+      await fetch(`${BASE_URL}/learner/logout`, {
         method: 'GET', 
         mode: 'cors',
         "Content-Type": "application/json",

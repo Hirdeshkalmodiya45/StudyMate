@@ -8,9 +8,9 @@ function Submit({ closeModal }) {
   const navigate = useNavigate();
   const { setReport } = useContext(AppContext);
   const { paper } = useContext(QuestionContext);
-
+   const BASE_URL = import.meta.env.VITE_API_URL;
   const handleSubmit = async () => {
-    await fetch("http://localhost:3300/exam/eval", {
+    await fetch(`${BASE_URL}/exam/eval`, {
       method: "POST",
       mode: "cors",
       headers: {

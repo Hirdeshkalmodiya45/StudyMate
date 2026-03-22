@@ -109,7 +109,7 @@ export default function Practice() {
         });
       } else {
         const res = await fetch(
-          `http://localhost:3300/api/aptitude?category=${encodeURIComponent(topic)}&difficulty=Easy&random=true&limit=10`,
+          `${BASE_URL}/api/aptitude?category=${encodeURIComponent(topic)}&difficulty=Easy&random=true&limit=10`,
           {
             method: "GET",
             mode: "cors",
