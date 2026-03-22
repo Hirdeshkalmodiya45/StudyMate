@@ -16,6 +16,7 @@ import AppContext from "../contexts/AppContext";
 import Submit from "../components/modals/Submit";
 import ExamContext from "../contexts/ExamContext";
 
+
 function ExamLayout() {
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -24,8 +25,12 @@ function ExamLayout() {
   const { email, user } = useContext(AppContext);
   const { paper, setPaper, currentQuestion, setCurrentQuestion } =
     useContext(ExamContext);
+   
+  const BASE_URL = import.meta.env.VITE_API_URL;
+   
+   
 
-  useEffect(() => {
+ useEffect(() => {
     const handleContextMenu = (e) => e.preventDefault();
 
     const handleKeyDown = (e) => {
@@ -36,12 +41,9 @@ function ExamLayout() {
         { key: "J", ctrlKey: true, shiftKey: true },
         { key: "U", ctrlKey: true },
       ];
-
-      if (
-        blockedKeys.some((k) =>
-          Object.keys(k).every((prop) => e[prop] === k[prop])
-        )
-      ) {
+      if (blockedKeys.some((k) =>
+        Object.keys(k).every((prop) => e[prop] === k[prop])
+      )) {
         e.preventDefault();
       }
     };
@@ -51,24 +53,18 @@ function ExamLayout() {
 
     async function getExamPaper() {
       try {
-        const response = await fetch("http://localhost:3300/exam/qes", {
+        const response = await fetch(`${BASE_URL}/exam/qes`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch paper");
-        }
-
+        if (!response.ok) throw new Error("Failed to fetch paper");
         const data = await response.json();
-
         const sanitizedQuestions = (data.questionSet || []).map((q) => ({
           ...q,
           options: Array.isArray(q.options)
             ? q.options
             : Object.values(q.options || {}),
         }));
-
         setPaper({ ...data, questionSet: sanitizedQuestions });
         setCurrentQuestion(0);
       } catch (err) {
@@ -85,7 +81,7 @@ function ExamLayout() {
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+}, []);  // ← yeh closing pehle se hai
 
   const totalQuestions = paper?.questionSet?.length || 0;
 

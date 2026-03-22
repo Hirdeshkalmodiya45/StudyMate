@@ -12,7 +12,8 @@ function Login() {
     const [disable, setDisable] = useState(false)
     const {setEmail, setUser,setIsVerified} = useContext(AppContext)
 
-    const handleInputChange = ({target:{name,value}}) => {
+  const BASE_URL = import.meta.env.VITE_API_URL;
+      const handleInputChange = ({target:{name,value}}) => {
         setFormInput({...formInput,[name]:value})
     }
 
@@ -21,7 +22,7 @@ function Login() {
 
         setDisable(true)
         async function getLoggedIn(data) {
-            return fetch('http://localhost:3300/login', {
+            return fetch(`${BASE_URL}/login`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -64,7 +65,7 @@ function Login() {
             </div>
 
             <div className="w-full md:w-full h-full flex justify-center  items-center mt-[100px] ">
-                <form className="mb-[50%] sm:mb-[25%] md:mb-[10%]" action="http://localhost:3300/login" method="post" onSubmit={handleSubmit}>
+                <form className="mb-[50%] sm:mb-[25%] md:mb-[10%]" action={`${BASE_URL}/login`} method="post" onSubmit={handleSubmit}>
                     <fieldset className="border-2 rounded-md border-gray-600 inline-block p-4">
                         <legend className="px-5 py-2 border border-gray-600 rounded-md font-semibold ">LogIn</legend>
                         <div className="flex flex-col space-y-1">

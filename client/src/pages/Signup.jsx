@@ -18,6 +18,8 @@ function Signup() {
         email: '',
         password: ''
     })
+
+  const BASE_URL = import.meta.env.VITE_API_URL;
     
     const navigate = useNavigate()
     const {setEmail, setUser} = useContext(AppContext)
@@ -41,7 +43,7 @@ function Signup() {
         async function postData() {
             setDisable(true)
             // Sending POST request using fetch API to '/signup' router
-            const response = await fetch('http://localhost:3300/signup', {
+            const response = await fetch(`${BASE_URL}/signup`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -83,7 +85,7 @@ function Signup() {
                 <img className='w-[400px] md:w-[500px] hidden md:inline-block' src="/images/Imagination-cuate.png" alt="student illustration" />
             </div>
             <div className='h-full w-full grid place-items-center mt-[100px]'>
-                <form className='w-[80%] mx-auto md:w-[60%] h-auto' action="http://localhost:3300/signup" onSubmit={handleSubmit}>
+                <form className='w-[80%] mx-auto md:w-[60%] h-auto' action={`${BASE_URL}/signup`} onSubmit={handleSubmit}>
                     <fieldset className='border-2 py-4 px-6 rounded-md' >
                         <legend className='text-left mx-6 py-2 border-2 rounded-md font-semibold font-montserrat text-slate-500 px-5'>SignUp</legend>
                         <div className='flex flex-col items-center justify-center space-y-4 w-full md:flex-row md:space-x-2 md:space-y-0'>

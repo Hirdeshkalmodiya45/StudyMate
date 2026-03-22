@@ -3,28 +3,7 @@
 // import Card from "../components/Card"
 
 function About() {
-  // const developers = [
-  //   {
-  //     name: 'Wasim Middya',
-  //     descrption: `Hi there I am Wasim Middya. I am working as a Bankend Engineer.`,
-  //     avater: '/images/wasim.jpg'
-  //   },
-  //   {
-  //     name: 'Sohan Shaw',
-  //     descrption: `Hi there I am Sohan Shaw. I am working as a Frontend Engineer.`,
-  //     avater: '/images/sohan.png'
-  //   },
-  //   {
-  //     name: 'Zeesan Tarafdar',
-  //     descrption: `Hi there I am Zeesan Tarafdar and I am working as a Database Administrator`,
-  //     avater: '/images/zeesan.jpg'
-  //   },
-  //   {
-  //     name: 'Ujjal Ghosh',
-  //     descrption: `Hi there I am Ujjal Ghosh and I am working as a service consultent.`,
-  //     avater: '/images/ujjal.jpeg'
-  //   }
-  // ]
+  
 
   return (
     <>

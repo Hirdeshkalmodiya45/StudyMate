@@ -22,11 +22,13 @@ function Verification() {
         setOtpInput(value)
     }
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
         const submitOTP = async (data) => {
-            const response = await fetch('http://localhost:3300/verify', {
+            const response = await fetch(`${BASE_URL}/verify`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

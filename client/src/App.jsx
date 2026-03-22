@@ -13,18 +13,19 @@ import Dashboard from "./pages/Dashboard";
 import AppContext from "./contexts/AppContext";
 import Progressboard from "./pages/Progressboard";
 import ExamContextProvider from "./contexts/ExamContextProvider";
-import Practice from "./pages/pratice";
+import Practice from "./pages/Pratice";
 import TestUploadForm from "./pages/TestUploadForm";
 let flag = true;
 
 function App() {
   const { email, setEmail, setUser,isVerified } = useContext(AppContext);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (flag) {
       flag = false;
       const verifySession = async () => {
-        const response = await fetch("http://localhost:3300/auth", {
+        const response = await fetch(`${BASE_URL}/auth`, {
           method: "POST",
           mode: "cors",
           headers: {

@@ -48,7 +48,8 @@ export default function Practice() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  
+  const BASE_URL = import.meta.env.VITE_API_URL;
   function shuffleArray(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -57,6 +58,7 @@ export default function Practice() {
     }
     return arr;
   }
+  
 
   const fetchQuestions = async (topic, category) => {
     let rawData;
@@ -64,7 +66,7 @@ export default function Practice() {
     try {
       if (category === "Reasoning") {
         const res = await fetch(
-          `http://localhost:3300/api/reasoning?topic=${encodeURIComponent(topic)}&difficulty=Easy`,
+          `${BASE_URL}/api/reasoning?topic=${encodeURIComponent(topic)}&difficulty=Easy`,
           {
             method: "GET",
             mode: "cors",

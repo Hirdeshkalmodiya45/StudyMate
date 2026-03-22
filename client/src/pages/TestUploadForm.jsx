@@ -17,6 +17,8 @@ const TestUploadForm = () => {
     }
   ]);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleQuestionChange = (index, field, value) => {
     const updated = [...questionSet];
     updated[index][field] = value;
@@ -54,7 +56,7 @@ const TestUploadForm = () => {
       questionSet
     };
    try {
-  const res = await fetch('http://localhost:3300/api/questionset/upload', {
+  const res = await fetch(`${BASE_URL}/api/questionset/upload`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
