@@ -6,15 +6,16 @@ const Learner = require('../models/Learner')
 const learnerService = require('../service/learnerService')
 const VerifyController = require('../controller/verify')
 require('dotenv').config();
-            const { DB_URI } = process.env
+            const { DB_URI } = process.env;
+          
 const saveRecord = async (req, res, next) => {
     let flag = false
     console.log(req.body);
-
+  console.log(DB_URI);
     const {fname,lname,email,password} = req.body
 
     // Database connectivity logic
-    await mongoose.connect("mongodb+srv://kalmodiyahirdesh:Hirdesh%408236@cluster0.efsmzpg.mongodb.net/studymate")
+    await mongoose.connect(DB_URI)
         .then(() => console.log('DB connected...'))
         .catch(error => console.error(error))
 

@@ -6,7 +6,7 @@ let flag = true;
 
 function Logout({ closeModal }) {
   const [success, setSuccess] = useState(true);
-  const {setEmail, setUser} = useContext(AppContext)
+  const {setEmail, setUser,setIsVerified} = useContext(AppContext)
 
   const handleLogOut = async () => {
     if (flag) {
@@ -22,6 +22,7 @@ function Logout({ closeModal }) {
           } else {
             setEmail(null)
             setUser(null)
+            setIsVerified(false)
             closeModal()
           }
         })

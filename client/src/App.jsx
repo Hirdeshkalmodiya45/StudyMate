@@ -18,7 +18,7 @@ import TestUploadForm from "./pages/TestUploadForm";
 let flag = true;
 
 function App() {
-  const { email, setEmail, setUser } = useContext(AppContext);
+  const { email, setEmail, setUser,isVerified } = useContext(AppContext);
 
   useEffect(() => {
     if (flag) {
@@ -43,9 +43,15 @@ function App() {
             setEmail(decoded.email);
             setUser(decoded.user);
           }
+          else {
+      setEmail(null);  // ← yeh add karo
+    }
         })
         .catch((err) => console.error(err));
+         setEmail(null); 
     }
+    // AppContext mein add karo:
+
   });
 
   return (
@@ -81,8 +87,8 @@ function App() {
           <Route path="practice" element={email ? <Practice /> : <Login />} />
           <Route path="upload" element={email ? <TestUploadForm /> : <Login />} />
           <Route path="verify" element={<Verification />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="result/progressboard" element={<Progressboard />} />
+        <Route path="dashboard" element={isVerified ? <Dashboard /> : <Login />} />
+<Route path="result/progressboard" element={email ? <Progressboard /> : <Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

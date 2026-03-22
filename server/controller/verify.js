@@ -4,7 +4,6 @@ const Learner = require('../models/Learner')
 
 require('dotenv').config()
 const { DB_URI } =process.env ;
-console.log(DB_URI);
 
 const saveOTP = async ({ email: email, otp: otp }) => {
 

@@ -8,7 +8,7 @@ const AppContextProvider = ({ children }) => {
   const [load, setLoad] = useState(true);
   const [report, setReport] = useState(null);
   const [inExam, setInExam] = useState(false);
-
+const [isVerified, setIsVerified] = useState(false);
   return (
     <AppContext.Provider
       value={{
@@ -23,6 +23,8 @@ const AppContextProvider = ({ children }) => {
         setReport,
         inExam,
         setInExam,
+          isVerified,        // ← ADD KARO
+        setIsVerified,
       }}
     >
       {children}

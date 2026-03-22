@@ -6,9 +6,14 @@ import AppContext from "../contexts/AppContext"
 
 function Verification() {
     const [otpInput, setOtpInput] = useState('')
-    const {email, setEmail} = useContext(AppContext)
+  const {email, setEmail, setIsVerified} = useContext(AppContext)
     const navigate = useNavigate()
-
+     useEffect(() => {
+    // Agar email nahi hai matlab user directly /verify pe aaya — wapas bhejo
+    if (!email) {
+        navigate('/login')
+    }
+}, [email, navigate])
     useEffect(() => {
         
     }, [email])
@@ -38,9 +43,11 @@ function Verification() {
         submitOTP({email: email, otp:otpInput})
             .then(res => {
                 if(res.status === true) {
+                  setIsVerified(true) 
                     navigate('/dashboard')
                 } else {
                     setEmail(null)
+                       navigate('/login')
                 }
             })
             .catch(() => navigate('*'))

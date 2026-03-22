@@ -10,7 +10,7 @@ function Login() {
     const [isError, setIsError] = useState(false)
     const [formInput, setFormInput] = useState({email: '', password: ''})
     const [disable, setDisable] = useState(false)
-    const {setEmail, setUser} = useContext(AppContext)
+    const {setEmail, setUser,setIsVerified} = useContext(AppContext)
 
     const handleInputChange = ({target:{name,value}}) => {
         setFormInput({...formInput,[name]:value})
@@ -45,6 +45,7 @@ function Login() {
                 setTimeout(() => {
                     setEmail(email)
                     setUser(user)
+                     setIsVerified(true)
                     navigate('/')
                 }, 2000)
             }

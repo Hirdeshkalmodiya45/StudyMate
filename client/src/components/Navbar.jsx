@@ -8,7 +8,7 @@ import AppContext from "../contexts/AppContext"
 function Navbar({ email }) {
     const [visible, setVisible] = useState('hidden')
     const [openModal, setOpenModal] = useState(false)
-    const { inExam } = useContext(AppContext)
+    const { inExam , isVerified } = useContext(AppContext)
 
     useEffect(() => {
         console.log('inExam :: ', inExam);
@@ -50,7 +50,7 @@ function Navbar({ email }) {
                                 </li>
 
                                 {
-                                    !email ?
+                                     !isVerified ?
                                         (<>
                                             <li>
                                                 <NavLink className={({ isActive }) => `hover:underline ${isActive ? 'font-bold' : ''} hover:font-semibold text-sm md:text-lg`} to='login'>LogIn</NavLink>

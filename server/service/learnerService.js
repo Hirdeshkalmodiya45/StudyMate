@@ -1,8 +1,6 @@
-const bcrypt = require('bcryptjs')
-const nodemailer = require('nodemailer')
-const {google} = require('googleapis')
-
-require('dotenv').config()
+const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 require('dotenv').config();
 
 const {
@@ -13,79 +11,86 @@ const {
   EMAIL
 } = process.env;
 console.log("CLIENT_ID:", CLIENT_ID);
+console.log("REFRESH_TOKEN:", REFRESH_TOKEN);
+console.log("REDIRECT_URI:", REDIRECT_URI);
 
-const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URI
+);
 
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+// 🔥 Set refresh token
+oAuth2Client.setCredentials({
+  refresh_token: REFRESH_TOKEN
+});
 
-/* Logic for hashing password */
+
+
+// ================= HASH PASSWORD =================
 const hashPassword = async (plaintextPassword) => {
-    /**
-     * @param plaintextPassword string
-     * This pice of code will generate a hashed password
-     * @returns hashed password
-    */
+  try {
     const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(plaintextPassword, saltRounds);
+    return hashedPassword;
+  } catch (error) {
+    console.error("Hash Error:", error);
+    throw error;
+  }
+};
 
-    try {
-        const hashedPassword = await bcrypt.hash(plaintextPassword, saltRounds);
-        return hashedPassword;
-    } catch (error) {
-        throw new Error('Error hashing password:', error);
-    }
-}
 
-// Generate OTP value
+// ================= GENERATE OTP =================
 const generateOTP = () => {
-    /**
-     * @param void 
-     * This function is used to generate random otp between 1000 to 9999
-     * It uses math funtion to generate random number.
-     * @returns Number
-     */
-    return Math.floor(Math.random() * (10000 - 100) + 100)
-}
+  return Math.floor(1000 + Math.random() * 9000);
+};
 
 
-// Send otp to the client's mail
+// ================= SEND OTP =================
 const sendOTP = async ({ email, otp }) => {
-    let info = null
+  try {
 
-    try {
-        const accessToken = await oAuth2Client.getAccessToken()
-
-console.log("Access Token:", accessToken);
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                type: 'OAUTH2',
-                user: EMAIL,
-                clientId: CLIENT_ID,
-                clientSecret: CLIENT_SECRET,
-                refreshToken: REFRESH_TOKEN,
-                accessToken: accessToken
-            } 
-        })
-
-        const mailContent = {
-            from: EMAIL,
-            to: email,
-            subject: "Verification Code",
-            html: `<h3>Your OTP number is :: <span style='color: #db2777; font-weight: 700;'>${otp}</span></h3>`
-        }
-
-        info = await transporter.sendMail(mailContent)
-    } catch (err) {
-        console.error(err)
-        return false
-    } finally {
-        if (info) 
-            return true
-        else 
-            return false
-    }
-}
+    console.log("Access Token:");
+   
+    const accessTokenResponse = await oAuth2Client.getAccessToken();
+const accessToken = accessTokenResponse?.token;
 
 
+    console.log("Access Token:", accessToken);
 
-module.exports = { hashPassword, generateOTP, sendOTP }
+    // 🔥 Transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: EMAIL,
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken
+      }
+    });
+
+    // 🔥 Mail content
+    const mailOptions = {
+      from: EMAIL,
+      to: email,
+      subject: "Verification Code",
+      html: `<h3>Your OTP is: <span style="color:#db2777;font-weight:bold;">${otp}</span></h3>`
+    };
+
+    // 🔥 Send mail
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log("Email sent:", info.response);
+
+    return true;
+
+  } catch (err) {
+    console.log(err);
+    console.error("OTP Error:", err.message);
+    return false;
+  }
+};
+
+module.exports = { hashPassword, generateOTP, sendOTP };
