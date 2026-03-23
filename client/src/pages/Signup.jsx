@@ -79,51 +79,87 @@ function Signup() {
 
 
     // JSX for rendering the signup form
-    return (
-        <>
-            <div className='w-full flex justify-center items-center' id="img-container">
-                <img className='w-[400px] md:w-[500px] hidden md:inline-block' src="/images/Imagination-cuate.png" alt="student illustration" />
-            </div>
-            <div className='h-full w-full grid place-items-center mt-[100px]'>
-                <form className='w-[80%] mx-auto md:w-[60%] h-auto' action={`${BASE_URL}/signup`} onSubmit={handleSubmit}>
-                    <fieldset className='border-2 py-4 px-6 rounded-md' >
-                        <legend className='text-left mx-6 py-2 border-2 rounded-md font-semibold font-montserrat text-slate-500 px-5'>SignUp</legend>
-                        <div className='flex flex-col items-center justify-center space-y-4 w-full md:flex-row md:space-x-2 md:space-y-0'>
-                            <SingleInput fieldName='fname' fieldType='text' fieldLabel='First Name' inputChange={handleInputChange} inputValue={formInput.fname} />
+return (
+    <>
+        <div className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 px-4 pt-20 pb-10">
 
-                            <SingleInput fieldName='lname' fieldType='text' fieldLabel='Last Name' inputChange={handleInputChange} inputValue={formInput.lname} />
+            {/* Illustration - only on md+ */}
+            <div className="hidden md:flex justify-center items-center w-full md:w-1/2">
+                <img
+                    className="w-[400px] lg:w-[500px]"
+                    src="/images/Imagination-cuate.png"
+                    alt="student illustration"
+                />
+            </div>
+
+            {/* Signup form */}
+            <div className="w-full md:w-1/2 flex justify-center items-center">
+                <form
+                    className="w-full max-w-sm"
+                    action={`${BASE_URL}/signup`}
+                    onSubmit={handleSubmit}
+                >
+                    <fieldset className="border-2 rounded-xl border-gray-300 w-full p-6 shadow-sm">
+                        <legend className="px-4 py-1 border border-gray-300 rounded-lg font-semibold text-gray-700">
+                            SignUp
+                        </legend>
+
+                        {/* First + Last name row */}
+                        <div className="flex flex-col space-y-3 mt-2 sm:flex-row sm:space-y-0 sm:space-x-3">
+                            <div className="w-full sm:w-1/2">
+                                <SingleInput
+                                    fieldName="fname" fieldType="text" fieldLabel="First Name"
+                                    inputChange={handleInputChange} inputValue={formInput.fname}
+                                />
+                            </div>
+                            <div className="w-full sm:w-1/2">
+                                <SingleInput
+                                    fieldName="lname" fieldType="text" fieldLabel="Last Name"
+                                    inputChange={handleInputChange} inputValue={formInput.lname}
+                                />
+                            </div>
                         </div>
-                        <div className='my-3'>
-                            <SingleInput fieldName={'email'} fieldType={'email'} fieldLabel={'Email ID'} pholder={'@gmail.com'} require={true} inputChange={handleInputChange} inputValue={formInput.email} />
+
+                        <div className="mt-4">
+                            <SingleInput
+                                fieldName="email" fieldType="email" fieldLabel="Email ID"
+                                pholder="@gmail.com" require={true}
+                                inputChange={handleInputChange} inputValue={formInput.email}
+                            />
                         </div>
-                        <div>
-                            <SingleInput fieldName={'password'} fieldType={'password'} fieldLabel={'Password'} pholder={'*****'} require={true} inputChange={handleInputChange} inputValue={formInput.password} />
+
+                        <div className="mt-4">
+                            <SingleInput
+                                fieldName="password" fieldType="password" fieldLabel="Password"
+                                pholder="*****" require={true}
+                                inputChange={handleInputChange} inputValue={formInput.password}
+                            />
                         </div>
-                        <div className='my-6 flex justify-center'>
-                            <button className='btn-primary' type="submit" disabled={disable}> {
-                                !disable ? "SignUp":<Oval
-                                height={24}
-                                width={24}
-                                color="#fff"
-                                wrapperStyle={{
-                                    padding: '1px 12px'
-                                }}
-                                wrapperClass=""
-                                visible={true}
-                                ariaLabel='oval-loading'
-                                secondaryColor="#efefef"
-                                strokeWidth={5}
-                                strokeWidthSecondary={8}
-                              />
-                            }</button>
-                            
-                        </div>
+
+                        <button
+                            className="w-full mt-6 py-2 rounded-lg bg-teal-700 hover:bg-teal-800
+                                       text-white font-semibold text-base transition-colors
+                                       disabled:opacity-60 disabled:cursor-not-allowed flex justify-center items-center"
+                            type="submit"
+                            disabled={disable}
+                        >
+                            {!disable ? "SignUp" : (
+                                <Oval
+                                    height={22} width={22}
+                                    color="#fff" secondaryColor="#efefef"
+                                    strokeWidth={5} strokeWidthSecondary={8}
+                                    visible={true} ariaLabel="oval-loading"
+                                />
+                            )}
+                        </button>
                     </fieldset>
                 </form>
             </div>
-            <SignError open={isError} closeModal={() => setIsError(false)}/>
-        </>
-    )
+        </div>
+
+        <SignError open={isError} closeModal={() => setIsError(false)} />
+    </>
+)
 }
 
 

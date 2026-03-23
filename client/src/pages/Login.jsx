@@ -58,49 +58,85 @@ function Login() {
         })
     }
 
-    return (
-        <>
-            <div className='w-full flex justify-center items-center' id="img-container">
-                <img className='w-[400px] md:w-[600px] hidden md:inline-block' src="/images/Creative thinking-bro.png" alt="student illustration" />
+   return (
+    <>
+        {/* Full page centered layout */}
+        <div className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 px-4 pt-20 pb-10">
+            
+            {/* Illustration - only on md+ */}
+            <div className="hidden md:flex justify-center items-center w-full md:w-1/2">
+                <img 
+                    className="w-[400px] lg:w-[500px]" 
+                    src="/images/Creative thinking-bro.png" 
+                    alt="student illustration" 
+                />
             </div>
 
-            <div className="w-full md:w-full h-full flex justify-center  items-center mt-[100px] ">
-                <form className="mb-[50%] sm:mb-[25%] md:mb-[10%]" action={`${BASE_URL}/login`} method="post" onSubmit={handleSubmit}>
-                    <fieldset className="border-2 rounded-md border-gray-600 inline-block p-4">
-                        <legend className="px-5 py-2 border border-gray-600 rounded-md font-semibold ">LogIn</legend>
-                        <div className="flex flex-col space-y-1">
-                            <label className="text-slate-600 font-semibold" htmlFor="email">Email ID</label>
-                            <input className=" border border-stone-900 rounded-md focus:outline focus:outline-2 focus:outline-teal-700 focus:border-none p-1" type="email" name="email" id="email" required value={formInput?.email} onChange={handleInputChange}/>
+            {/* Login form */}
+            <div className="w-full md:w-1/2 flex justify-center items-center">
+                <form 
+                    className="w-full max-w-sm"
+                    action={`${BASE_URL}/login`} 
+                    method="post" 
+                    onSubmit={handleSubmit}
+                >
+                    <fieldset className="border-2 rounded-xl border-gray-300 w-full p-6 shadow-sm">
+                        <legend className="px-4 py-1 border border-gray-300 rounded-lg font-semibold text-gray-700">
+                            LogIn
+                        </legend>
+
+                        <div className="flex flex-col space-y-1 mt-2">
+                            <label className="text-slate-600 font-semibold text-sm" htmlFor="email">
+                                Email ID
+                            </label>
+                            <input 
+                                className="w-full border border-stone-300 rounded-lg p-2 text-sm
+                                           focus:outline focus:outline-2 focus:outline-teal-700 focus:border-none" 
+                                type="email" name="email" id="email" 
+                                required 
+                                value={formInput?.email} 
+                                onChange={handleInputChange}
+                            />
                         </div>
-                        <div className="flex flex-col my-2 space-y-1">
-                            <label className="text-slate-600 font-semibold" htmlFor="password">Password</label>
-                            <input className=" border border-stone-900 rounded-md focus:border-none focus:outline focus:outline-2 focus:outline-teal-700 p-1" type="password" name="password" id="password" required value={formInput?.password} onChange={handleInputChange}/>
+
+                        <div className="flex flex-col space-y-1 mt-4">
+                            <label className="text-slate-600 font-semibold text-sm" htmlFor="password">
+                                Password
+                            </label>
+                            <input 
+                                className="w-full border border-stone-300 rounded-lg p-2 text-sm
+                                           focus:outline focus:outline-2 focus:outline-teal-700 focus:border-none" 
+                                type="password" name="password" id="password" 
+                                required 
+                                value={formInput?.password} 
+                                onChange={handleInputChange}
+                            />
                         </div>
-                        <div className="my-2">
-                            <button className="px-5 py-1 mt-4 border relative left-[50%] translate-x-[-50%] rounded-md bg-teal-700 hover:bg-teal-800 border-none text-white font-semibold text-lg" type="submit" disabled={disable}>{
-                                !disable  ? "LogIn":<Oval
-                                height={24}
-                                width={24}
-                                color="#fff"
-                                wrapperStyle={{
-                                    padding: '1px 12px'
-                                }}
-                                wrapperClass=""
-                                visible={true}
-                                ariaLabel='oval-loading'
-                                secondaryColor="#efefef"
-                                strokeWidth={5}
-                                strokeWidthSecondary={8}
-                              />
-                            }</button>
-                        </div>
+
+                        <button 
+                            className="w-full mt-6 py-2 rounded-lg bg-teal-700 hover:bg-teal-800 
+                                       text-white font-semibold text-base transition-colors
+                                       disabled:opacity-60 disabled:cursor-not-allowed flex justify-center items-center" 
+                            type="submit" 
+                            disabled={disable}
+                        >
+                            {!disable ? "LogIn" : (
+                                <Oval
+                                    height={22} width={22}
+                                    color="#fff" secondaryColor="#efefef"
+                                    strokeWidth={5} strokeWidthSecondary={8}
+                                    visible={true} ariaLabel="oval-loading"
+                                />
+                            )}
+                        </button>
                     </fieldset>
                 </form>
             </div>
+        </div>
 
-            <LogError open={isError} close={() => setIsError(false)}/>
-        </>
-    )
+        <LogError open={isError} close={() => setIsError(false)}/>
+    </>
+)
 }
 
 export default Login

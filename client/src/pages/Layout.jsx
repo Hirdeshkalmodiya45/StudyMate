@@ -2,23 +2,22 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "../components/Navbar"
 
-
 function Layout({email}) {
-    
     return (
-        <>
-            <header >
+        <div className="min-h-screen flex flex-col">
+            <header>
                 <Navbar email={email}/>
             </header>
-            <section className={`flex-col  h-full w-full md:flex md:flex-row `}>
+
+            <section className="flex-1 w-full pt-[72px] md:pt-[64px]">
                 <Outlet />
             </section>
+
             <footer className='h-20 bg-teal-800 flex flex-col justify-center'>
-                {/* Write the footer */}
                 <h2 className='text-lg text-center text-white font-semibold'>studmatea@gmail.com</h2>
-                <p className="text-center text-white text-xs">copyritght all right received ©</p>
+                <p className="text-center text-white text-xs">copyright all rights reserved ©</p>
             </footer>
-        </>
+        </div>
     )
 }
 
