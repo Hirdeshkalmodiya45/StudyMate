@@ -8,7 +8,8 @@ function Submit({ closeModal }) {
   const navigate = useNavigate();
   const { setReport } = useContext(AppContext);
   const { paper } = useContext(QuestionContext);
-   const BASE_URL = import.meta.env.VITE_API_URL;
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async () => {
     await fetch(`${BASE_URL}/exam/eval`, {
       method: "POST",
@@ -28,25 +29,25 @@ function Submit({ closeModal }) {
 
   return ReactDOM.createPortal(
     <>
-      <div className="p-6 w-[35%] shadow-md rounded-md bg-white fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] space-y-3 z-50">
-        <h3 className="text-xl font-semibold">Are you sure ?</h3>
-        <p className="text-sm">
-          Do really want to submit the paper? Once you submit the paper you will
-          never be able to make any change or correction, make sure your review
-          all your questions and answers then submit.
+      <div className="p-6 w-[90%] md:w-[35%] shadow-md rounded-md bg-white fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] space-y-3 z-50">
+        <h3 className="text-xl font-semibold">Are you sure?</h3>
+        <p className="text-sm text-slate-600">
+          Do you really want to submit the paper? Once submitted, you will not
+          be able to make any changes. Make sure you have reviewed all your
+          questions and answers before submitting.
         </p>
-        <div className="flex justify-evenly">
+        <div className="flex gap-3 pt-1">
           <button
-            className="text-white bg-green-600 px-4 py-1 rounded-md"
+            className="flex-1 text-white bg-green-600 px-4 py-2 rounded-md font-semibold active:scale-[0.97] transition-transform"
             onClick={handleSubmit}
           >
-            Yes
+            Yes, Submit
           </button>
           <button
-            className="text-white bg-red-600 px-4 py-1 rounded-md"
+            className="flex-1 text-white bg-red-500 px-4 py-2 rounded-md font-semibold active:scale-[0.97] transition-transform"
             onClick={closeModal}
           >
-            No
+            Cancel
           </button>
         </div>
       </div>
