@@ -46,7 +46,7 @@ return (
             </h2>
 
             <p className="text-base text-center text-slate-500 leading-relaxed">
-              Hi there! Welcome to{" "}
+              Hellooo there! Welcome to{" "}
               <span className="font-semibold text-pink-500">StudyMate</span>.
               Practice and enhance your aptitude skills on our platform —
               completely free of cost!
